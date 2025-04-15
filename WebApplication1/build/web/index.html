@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Acapulco - Sua satisfação é nosso prazer!</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="images/icons/LOGO-HOTEL.png-16x16.ico">
+</head>
+<body>
+    <header>
+        <img src="images/LOHO HOTEL 0 (1).png" alt="Logo do Hotel">
+        <div class="header-content">
+        <h1>Hotel Acapulco</h1>
+    </div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="html/login.html">Intranet</a>
+        <a href="html/sobreNos.html">Sobre nós</a>
+        </nav>
+    </header>
+    <main>
+        <div class="boas-vindas">
+            <h2>Bem-vindo ao Hotel Acapulco!</h2>
+            <h3>Hospede-se conosco e aproveite momentos de conforto e luxo.</h3>
+        </div>  
+    
+        <!-- Catalogo Atualizado -->
+        <div id="catalogo">
+            <div class="produtos-container">
+                <!-- Quarto Standard -->
+                <div class="produto">
+                    <img src="./images/quarto_standard.jpg" alt="Quarto Standard">
+                    <h1>Quarto Standard</h1>
+                    <p>O Quarto Standard oferece um ambiente acolhedor e funcional, perfeito para uma estadia prática e confortável.</p>
+                    <h2>R$150</h2>
+                    <button onclick="scrollToSection('reserva')">VER MAIS</button>
+                </div>
+                <!-- Quarto Premium -->
+                <div class="produto">
+                    <img src="./images/quarto_premium.jpeg" alt="Quarto Premium">
+                    <h1>Quarto Premium</h1>
+                    <p>O Quarto Premium combina conforto aprimorado e elegância, sendo uma escolha ideal para quem busca um pouco mais de sofisticação em sua estadia.</p>
+                    <h2>R$220</h2>
+                    <button onclick="scrollToSection('reserva')">VER MAIS</button>
+                </div>
+                <!-- Quarto Deluxe -->
+                <div class="produto">
+                    <img src="./images/quarto_deluxe.jpeg" alt="Quarto Deluxe">
+                    <h1>Quarto Deluxe</h1>
+                    <p>O Quarto Deluxe oferece uma experiência de conforto e sofisticação com sua decoração elegante e ambiente acolhedor.</p>
+                    <h2>R$350</h2>
+                    <button onclick="scrollToSection('reserva')">VER MAIS</button>
+                </div>
+                <!-- Cobertura Executiva -->
+                <div class="produto">
+                    <img src="./images/cobertura_executiva.jpg" alt="Cobertura Executiva">
+                    <h1>Cobertura Executiva</h1>
+                    <p>Desfrute do máximo em luxo e exclusividade em nossa cobertura executiva, com vista deslumbrante para o mar em um ambiente de alto nível!</p>
+                    <h2>R$520</h2>
+                    <button onclick="scrollToSection('reserva')">VER MAIS</button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Seção "Seja um Cliente VIP" agora antes de "Reserve Agora" -->
+        <div class="promocao">
+            <div class="promocao-texto">
+                <h2>SEJA UM CLIENTE VIP</h2>
+                <p>Já imaginou ser um cliente exclusivo do Hotel Acapulco e receber vantagens únicas como descontos, upgrades e serviços personalizados? Faça parte do nosso programa VIP e viva uma experiência ainda mais especial conosco.</p>
+                <a href="https://forms.gle/m4g1bfpoj4vjWt7e9" class="button">Cadastre-se agora</a>
+            </div>
+            <div class="promocao-imagem">
+                <img src="images/cliente_vip.jpg" alt="Cliente VIP do Hotel">
+            </div>
+        </div>
+    
+        <!-- Seção de Reservas movida para depois -->
+        <div id="reserva" class="reserva">
+            <div class="reserva-info">
+                <div class="reserva-header">
+                    <img src="./images/LOHO HOTEL 0 (1).png" alt="Logo do Hotel" class="reserva-logo">
+                    <h2>Hotel Acapulco</h2>
+                </div>
+                <ul>
+                    <li><strong>Endereço:</strong> Avenida do Limoeiro, 234, Praia Encantada - Tangamandápio</li>
+                    <li><strong>Email:</strong> contato@hotelacapulco.com</li>
+                    <li><strong>Telefone:</strong> (11) 99999-9999</li>
+                </ul>
+            </div>
+            <div class="reserva-acao">
+                <h3>Faça sua reserva agora mesmo!</h3>
+                <!-- Botão ajustado para redirecionar ao site -->
+                <a href="https://forms.gle/W7j5w2ztcxpBrAB17" class="button">Formulário de Reserva</a>
+            </div>
+        </div>                        
+    </main>  
+    <footer>
+        <p>&copy; 2024 Hotel Acapulco. Todos os direitos reservados.</p>
+    </footer>
+    <script src="./scripts/index.js"></script>
+</body>
+</html>
