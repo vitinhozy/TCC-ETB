@@ -1,0 +1,58 @@
+     /* Estilos do Footer */
+     .custom-footer {
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        padding: 30px 0;
+        font-family: 'Arial', sans-serif;
+        position: relative;
+        margin-top: 50px;
+    }
+    
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .footer-line {
+        font-size: 1.2rem;
+        margin: 10px 0;
+        position: relative;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+    
+    .footer-line:hover {
+        transform: scale(1.05);
+        color: #ff0000;
+    }
+    
+    .footer-line::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: #ff0000;
+        transition: width 0.3s ease;
+    }
+    
+    .footer-line:hover::after {
+        width: 100%;
+    }
+    
+    /* Animação adicional para o desenvolvedor */
+    .developer:hover {
+        animation: pulse 0.5s ease infinite alternate;
+    }
+    
+    @keyframes pulse {
+        from {
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        to {
+            text-shadow: 0 0 15px rgba(255,0,0,0.8);
+        }
+    }
