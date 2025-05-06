@@ -34,14 +34,14 @@ body, html {
     align-items: center;
     justify-content: space-between;
     padding: 15px;
-    background-color: #000;
+    background-color: #4d4d4d;
     color: #fff;
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
 .accordion-header:hover {
-    background-color: #333;
+    background-color: #9e0404;
 }
 
 .accordion-header .header-left {
