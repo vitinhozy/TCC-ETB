@@ -7,7 +7,7 @@
             }
             
             .custom-navbar {
-                background-color: #fff;
+                background-color: #4d4d4d;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                 padding: 15px 0;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,7 +21,7 @@
             }
             
             .custom-navbar .navbar-nav .nav-link {
-                color: #3c618b;
+                color: #ffffff;
                 padding: 8px 15px;
                 margin: 0 5px;
                 position: relative;
@@ -39,7 +39,7 @@
                 height: 2px;
                 bottom: 0;
                 left: 0;
-                background-color: #302b44;
+                background-color: #ffffff;
                 transition: width 0.3s ease;
             }
             
@@ -87,7 +87,7 @@
                 height: 2px;
                 bottom: -5px;
                 left: 0;
-                background-color: #ffffff;
+                background-color: #7057d6;
                 transition: width 0.3s ease;
             }
             

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CADASTRO - Leleo Tattoo</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/cadastro.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg custom-navbar fixed-top">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">INÍCIO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./catalogo.html">CATÁLOGO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./cuidadosTattoo.html">CUIDADOS COM A TATTOO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./sobreMim.html">SOBRE MIM</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./cadastro.html">CADASTRO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">LOGIN</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="form-container animated-form">
+                <h2 class="form-title">CRIAR CONTA</h2>
+                <form id="registrationForm">
+                    <div class="mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="E-mail" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" id="password" placeholder="Senha" required>
+                        <div class="password-strength mt-2">
+                            <div class="strength-bar" id="passwordStrength"></div>
+                        </div>
+                        <small id="passwordHelp" class="form-text text-muted">A senha deve ter pelo menos 6 caracteres.</small>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmar Senha" required>
+                        <small id="confirmHelp" class="form-text text-muted"></small>
+                    </div>
+                    <button type="submit" class="btn btn-custom">CADASTRAR</button>
+                </form>
+                <div class="form-footer">
+                    Já tem uma conta? <a href="#">Faça login</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="custom-footer">
+        <div class="footer-content">
+            <div class="footer-line">TODOS OS DIREITOS RESERVADOS &copy</div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const passwordStrength = document.getElementById('passwordStrength');
+            const passwordHelp = document.getElementById('passwordHelp');
+            const confirmHelp = document.getElementById('confirmHelp');
+            
+            // Verificação de força da senha
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                let strength = 0;
+                
+                if (password.length >= 6) strength += 1;
+                if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength += 1;
+                if (password.match(/[0-9]/)) strength += 1;
+                if (password.match(/[^a-zA-Z0-9]/)) strength += 1;
+                
+                // Atualizar barra de força
+                let width = 0;
+                let color = '#dc3545'; // Vermelho
+                
+                if (strength === 1) {
+                    width = 25;
+                    color = '#dc3545';
+                    passwordHelp.textContent = 'Senha fraca';
+                } else if (strength === 2) {
+                    width = 50;
+                    color = '#fd7e14';
+                    passwordHelp.textContent = 'Senha moderada';
+                } else if (strength === 3) {
+                    width = 75;
+                    color = '#ffc107';
+                    passwordHelp.textContent = 'Senha boa';
+                } else if (strength >= 4) {
+                    width = 100;
+                    color = '#28a745';
+                    passwordHelp.textContent = 'Senha forte';
+                } else {
+                    passwordHelp.textContent = 'A senha deve ter pelo menos 6 caracteres.';
+                }
+                
+                passwordStrength.style.width = width + '%';
+                passwordStrength.style.backgroundColor = color;
+            });
+            
+            // Verificação de confirmação de senha
+            confirmPasswordInput.addEventListener('input', function() {
+                if (this.value !== passwordInput.value) {
+                    confirmHelp.textContent = 'As senhas não coincidem!';
+                    confirmHelp.style.color = '#dc3545';
+                    this.classList.add('shake');
+                    setTimeout(() => this.classList.remove('shake'), 500);
+                } else {
+                    confirmHelp.textContent = 'As senhas coincidem!';
+                    confirmHelp.style.color = '#28a745';
+                }
+            });
+            
+            // Validação do formulário
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    confirmPasswordInput.classList.add('shake');
+                    setTimeout(() => confirmPasswordInput.classList.remove('shake'), 500);
+                    return;
+                }
+                
+                if (passwordInput.value.length < 6) {
+                    passwordInput.classList.add('shake');
+                    setTimeout(() => passwordInput.classList.remove('shake'), 500);
+                    return;
+                }
+                
+                // Simulação de cadastro bem-sucedido
+                alert('Cadastro realizado com sucesso!');
+                form.reset();
+                passwordStrength.style.width = '0';
+                passwordHelp.textContent = 'A senha deve ter pelo menos 6 caracteres.';
+                confirmHelp.textContent = '';
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
