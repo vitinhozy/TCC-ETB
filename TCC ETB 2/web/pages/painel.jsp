@@ -57,8 +57,13 @@
 </head>
 <body>
 <div class="container animate__animated animate__fadeIn">
+    <!-- Botão de voltar -->
+    <a href="../index.html" class="btn btn-secondary back-button animate__animated animate__fadeInLeft">
+        <i class="fas fa-arrow-left me-2"></i>Voltar ao Menu
+    </a>
+    
     <div class="welcome-card p-4 text-center animate__animated animate__fadeInDown">
-        <h2><i class="fas fa-user-circle me-2"></i>Bem-vindo, <%= usuarioEmail %>!</h2>
+        <h2><i class="fas fa-user-circle me-2"></i>Bem-vindo!</h2>
         <p class="mb-0">Gerencie seus agendamentos aqui</p>
     </div>
     

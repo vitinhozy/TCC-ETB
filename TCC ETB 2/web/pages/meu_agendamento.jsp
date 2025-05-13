@@ -1,50 +1,84 @@
-<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*, java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Integer usuarioId = (Integer) session.getAttribute("usuarioId");
-    String usuarioEmail = (String) session.getAttribute("usuarioEmail");
-
     if (usuarioId == null) {
         response.sendRedirect("login.jsp");
         return;
     }
 
-    String horarioAgendado = "Nenhum horário agendado.";
+    String mensagem = "";
 
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
-
-        String sql = "SELECT horario FROM agendamentos WHERE usuario_id = ? ORDER BY horario DESC LIMIT 1";
-        PreparedStatement stmt = conexao.prepareStatement(sql);
-        stmt.setInt(1, usuarioId);
-        ResultSet rs = stmt.executeQuery();
-
-        if (rs.next()) {
-            horarioAgendado = rs.getString("horario");
+    // Cancelar agendamento
+    if (request.getParameter("cancelarId") != null) {
+        int idCancelar = Integer.parseInt(request.getParameter("cancelarId"));
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM agendamentos WHERE id = ? AND usuario_id = ?");
+            stmt.setInt(1, idCancelar);
+            stmt.setInt(2, usuarioId);
+            stmt.executeUpdate();
+            mensagem = "Agendamento cancelado com sucesso!";
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            mensagem = "Erro ao cancelar: " + e.getMessage();
         }
-
-        rs.close();
-        stmt.close();
-        conexao.close();
-    } catch (Exception e) {
-        horarioAgendado = "Erro: " + e.getMessage();
     }
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Meu Agendamento</title>
+    <title>Meus Agendamentos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5">
-    <h2>Olá, <%= usuarioEmail %></h2>
-    <p><strong>Seu último horário agendado:</strong></p>
-    <div class="alert alert-success"><%= horarioAgendado %></div>
-    <a href="painel.jsp" class="btn btn-secondary">Voltar ao Painel</a>
+    <h2 class="mb-4">Meus Agendamentos</h2>
+    
+    <% if (!mensagem.isEmpty()) { %>
+        <div class="alert alert-info"><%= mensagem %></div>
+    <% } %>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Data e Horário</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                try {
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
+                    PreparedStatement stmt = con.prepareStatement("SELECT * FROM agendamentos WHERE usuario_id = ?");
+                    stmt.setInt(1, usuarioId);
+                    ResultSet rs = stmt.executeQuery();
+                    while (rs.next()) {
+                        int agendamentoId = rs.getInt("id");
+                        String horario = rs.getString("horario");
+            %>
+                <tr>
+                    <td><%= horario %></td>
+                    <td>
+                        <a href="editar_agendamento.jsp?id=<%= agendamentoId %>" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="meu_agendamento.jsp?cancelarId=<%= agendamentoId %>" class="btn btn-danger btn-sm" onclick="return confirm('Deseja realmente cancelar?')">Cancelar</a>
+                    </td>
+                </tr>
+            <%
+                    }
+                    rs.close();
+                    stmt.close();
+                    con.close();
+                } catch (Exception e) {
+                    out.print("Erro: " + e.getMessage());
+                }
+            %>
+        </tbody>
+    </table>
+
+    <a href="painel.jsp" class="btn btn-secondary">Voltar</a>
 </div>
 </body>
 </html>

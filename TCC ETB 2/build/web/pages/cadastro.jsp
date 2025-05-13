@@ -11,13 +11,27 @@
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
-                String sql = "INSERT INTO usuarios (email, senha) VALUES (?, ?)";
-                PreparedStatement stmt = conexao.prepareStatement(sql);
-                stmt.setString(1, email);
-                stmt.setString(2, senha);
-                stmt.executeUpdate();
-                mensagem = "Cadastro realizado com sucesso!";
-                stmt.close();
+
+                // Verifica se o email já está cadastrado
+                String checkSql = "SELECT * FROM usuarios WHERE email = ?";
+                PreparedStatement checkStmt = conexao.prepareStatement(checkSql);
+                checkStmt.setString(1, email);
+                ResultSet rs = checkStmt.executeQuery();
+
+                if (rs.next()) {
+                    mensagem = "Email já cadastrado!";
+                } else {
+                    String sql = "INSERT INTO usuarios (email, senha) VALUES (?, ?)";
+                    PreparedStatement stmt = conexao.prepareStatement(sql);
+                    stmt.setString(1, email);
+                    stmt.setString(2, senha);
+                    stmt.executeUpdate();
+                    mensagem = "Cadastro realizado com sucesso!";
+                    stmt.close();
+                }
+
+                rs.close();
+                checkStmt.close();
                 conexao.close();
             } catch (Exception e) {
                 mensagem = "Erro ao cadastrar: " + e.getMessage();
@@ -27,7 +41,6 @@
         }
     }
 %>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">

@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #7057d6;
-    --secondary-color: #ffab40;
+    --primary-color: #4d4d4d;
+    --secondary-color: #7057d6;
     --dark-color: #121212;
     --light-color: #f5f5f5;
 }
@@ -69,8 +69,8 @@ body {
 }
 
 .btn-secondary:hover {
-    background-color: #ff9100;
-    border-color: #ff9100;
+    background-color: #7057d6;
+    border-color: #7057d6;
     transform: translateY(-2px);
     color: var(--dark-color);
 }
@@ -145,4 +145,20 @@ body {
     justify-content: center;
     margin-right: 15px;
     font-weight: bold;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.agendamento-item {
+    transition: all 0.3s ease;
+}
+
+.agendamento-item:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
 }
