@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUIDADOS COM A TATTOO - Leleo Tattoo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/cuidadosTattoo.css">
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg custom-navbar fixed-top">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">INÍCIO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./catalogo.html">CATÁLOGO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./catalogo.html">CUIDADOS COM A TATTOO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./sobreMim.html">SOBRE MIM</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./cadastro.html">CADASTRO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./login.html">LOGIN</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+
+
+        <div class="accordion-container">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span class="icon">+</span>
+                    <h3>TRÊS PRIMEIROS DIAS</h3>
+                </div>
+                <div class="accordion-content">
+                    <p>...</p>
+                </div>
+            </div>
+        
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span class="icon">+</span>
+                    <h3>HIGIENIZAÇÃO</h3>
+                </div>
+                <div class="accordion-content">
+                    <p>...</p>
+                </div>
+            </div>
+        
+            <!-- Adicione mais blocos conforme necessário -->
+        </div>
+        
+    </main>
+    <footer class="custom-footer">
+        <div class="footer-content">
+            <div class="footer-line">TODOS OS DIREITOS RESERVADOS &copy</div>
+        </div>
+    </footer>
+
+    <script>
+        const headers = document.querySelectorAll('.accordion-header');
+
+        headers.forEach(header => {
+        header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const content = item.querySelector('.accordion-content');
+        const icon = header.querySelector('.icon');
+
+        // Fechar todos os outros
+        document.querySelectorAll('.accordion-item').forEach(otherItem => {
+            if (otherItem !== item) {
+                otherItem.querySelector('.accordion-content').style.maxHeight = null;
+                otherItem.querySelector('.accordion-content').style.padding = '0 15px';
+                otherItem.querySelector('.icon').textContent = '+';
+            }
+        });
+
+        // Alternar este item
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            content.style.padding = '0 15px';
+            icon.textContent = '+';
+        } else {
+            content.style.maxHeight = content.scrollHeight + 'px';
+            content.style.padding = '15px';
+            icon.textContent = '−';
+        }
+    });
+});
+    </script>
+    
+</body>
+</html>
