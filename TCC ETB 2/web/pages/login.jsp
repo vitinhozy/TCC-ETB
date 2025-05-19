@@ -22,8 +22,14 @@
                     mensagem = "Login realizado com sucesso! Bem-vindo, " + email;
                     session.setAttribute("usuarioId", rs.getInt("id"));
                     session.setAttribute("usuarioEmail", rs.getString("email"));        
-                    response.sendRedirect("painel.jsp");
 
+                    // Verifica se é o tatuador/admin para redirecionar corretamente
+                    if ("tatuador@leleo.com".equalsIgnoreCase(email)) {
+                        response.sendRedirect("painelTatuador.jsp");
+                    } else {
+                        response.sendRedirect("painel.jsp");
+                    }
+                    return;  // Para garantir que não continue processando o restante da página
                 } else {
                     mensagem = "E-mail ou senha inválidos.";
                 }

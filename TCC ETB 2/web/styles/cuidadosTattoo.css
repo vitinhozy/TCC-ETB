@@ -77,3 +77,28 @@ body, html {
 .accordion-content p {
     margin: 15px 0;
 }
+
+            .custom-footer {
+                background-color: #4d4d4d;
+                color: #ffffff;
+                text-align: center;
+                padding: 30px 0;
+                font-family: 'Arial', sans-serif;
+                margin-top: auto; 
+            }
+            
+            .footer-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            .footer-line {
+                font-size: 1.2rem;
+                margin: 10px 0;
+                position: relative;
+                display: inline-block;
+                transition: all 0.3s ease;
+            }
+            
+        

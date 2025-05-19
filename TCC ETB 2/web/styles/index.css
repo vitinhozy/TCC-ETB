@@ -1,11 +1,143 @@
+/* Estilos gerais */
 body {
+    height: 100%;  
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    padding-top: 56px;
-    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    color: #333;
+    padding-top:
 }
 
+.hero-section {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('../imgs/tattoo-bg.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-top: -70px;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.content-section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.content-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #222;
+}
+
+.content-section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: #555;
+}
+
+.image-container {
+    height: 500px; /* ou o valor que quiser */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container img {
+    transition: transform 0.5s ease;
+}
+
+.image-container:hover img {
+    transform: scale(1.03);
+}
+
+/* Efeitos de revelação */
+.reveal {
+    position: relative;
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+.reveal.fade-left {
+    transform: translateX(-50px);
+}
+
+.reveal.fade-right {
+    transform: translateX(50px);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Seção CTA */
+.cta-section {
+    padding: 80px 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                url('../imgs/tattoo-bg-2.jpg') no-repeat center center;
+    background-size: cover;
+    color: white;
+    text-align: center;
+}
+
+.cta-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    
+    .content-section {
+        padding: 70px 0;
+    }
+    
+    .text-content, .image-container {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+    
+    .content-section h2 {
+        font-size: 2rem;
+    }
+}
 .custom-navbar {
     background-color: #4d4d4d;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -76,133 +208,4 @@ body {
                 transition: all 0.3s ease;
             }
             
-            .footer-line:hover {
-                transform: scale(1.05);
-                color: #ffffff;
-            }
-            
-            .footer-line::after {
-                content: '';
-                position: absolute;
-                width: 0;
-                height: 2px;
-                bottom: -5px;
-                left: 0;
-                background-color: #7057d6;
-                transition: width 0.3s ease;
-            }
-            
-            .footer-line:hover::after {
-                width: 100%;
-            }
-            
-            @media (max-width: 991.98px) {
-                body {
-                    padding-top: 60px;
-                }
-                
-                .custom-navbar .navbar-nav {
-                    padding-top: 15px;
-                }
-                
-                .custom-navbar .navbar-nav .nav-link {
-                    padding: 10px 15px;
-                    margin: 5px 0;
-                }
-            }
-
-            .custom-navbar .navbar-nav.ms-auto .nav-link {
-                margin-left: 15px;
-            }
-            
-/* Estilos para o carrossel vertical mobile */
-.mobile-vertical-carousel {
-    width: 450px;
-    height: 450px;
-    margin: 0 auto;
-}
-
-.mobile-vertical-carousel .carousel-inner {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.mobile-vertical-carousel .carousel-item {
-    width: 100%;
-    height: 100%;
-    min-height: unset;
-}
-
-.mobile-vertical-carousel .carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.mobile-vertical-carousel .carousel-control-prev,
-.mobile-vertical-carousel .carousel-control-next {
-    width: 30px;
-    height: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    opacity: 0.8;
-}
-
-.mobile-vertical-carousel .carousel-control-prev {
-    left: 10px;
-}
-
-.mobile-vertical-carousel .carousel-control-next {
-    right: 10px;
-}
-
-/* Cards abaixo do carrossel */
-.info-card {
-    margin-top: 20px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.info-card:hover {
-    transform: translateY(-5px);
-}
-
-.info-card .card-body {
-    padding: 20px;
-}
-
-.info-card .btn {
-    font-size: 14px;
-    padding: 8px 15px;
-}
-
-/* Responsividade para navbar */
-@media (max-width: 576px) {
-    .custom-navbar .navbar-nav .nav-link {
-        font-size: 12px;
-        padding: 8px 10px;
-    }
-
-    /* Você pode esconder o carrossel ou redimensionar se quiser */
-    .mobile-vertical-carousel {
-        width: 100%;
-        height: auto;
-    }
-
-    .mobile-vertical-carousel .carousel-item {
-        height: auto;
-    }
-
-    .mobile-vertical-carousel .carousel-item img {
-        height: auto;
-    }
-}
+        
