@@ -7,12 +7,12 @@
 
     Class.forName("com.mysql.cj.jdbc.Driver");
     Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
-    PreparedStatement stmt = conn.prepareStatement("UPDATE livros SET titulo=?, autor=?, ano=? WHERE id=?");
-    stmt.setString(1, titulo);
-    stmt.setString(2, autor);
-    stmt.setInt(3, ano);
-    stmt.setInt(4, id);
+    PreparedStatement stmt = conn.prepareStatement("INSERT INTO livros VALUES (?, ?, ?, ?)");
+    stmt.setInt(1, id);
+    stmt.setString(2, titulo);
+    stmt.setString(3, autor);
+    stmt.setInt(4, ano);
     stmt.executeUpdate();
 
-    out.print("Livro alterado com sucesso!");
+    out.print("Livro cadastrado com sucesso!");
 %>
