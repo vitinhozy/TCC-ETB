@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>LELEO TATTOO</title>
+        <link rel="stylesheet" href="styles/index.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+
+ <body>
+        <header>
+            <nav class="navbar navbar-expand-lg custom-navbar fixed-top">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">INÍCIO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/catalogo.html">CATÁLOGO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/cuidadosTattoo.html">CUIDADOS COM A TATTOO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/sobreMim.html">SOBRE MIM</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/cadastro.jsp">CADASTRO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/login.jsp">LOGIN</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Carrossel Vertical para Mobile -->
+        <main class="container mt-3">
+            <div id="mobileVerticalCarousel" class="carousel slide mobile-vertical-carousel" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="imgs/tattoo1.jpeg" class="d-block w-100" alt="Tattoo Art 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imgs/tattoo2.jpeg" class="d-block w-100" alt="Tattoo Art 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imgs/tattoo3.jpeg" class="d-block w-100" alt="Tattoo Art 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imgs/tattoo4.jpeg" class="d-block w-100" alt="Tattoo Art 4">
+                    </div>
+                     <div class="carousel-item">
+                        <img src="imgs/tattoo5.jpeg" class="d-block w-100" alt="Tattoo Art 5">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#mobileVerticalCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#mobileVerticalCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Próximo</span>
+                </button>
+            </div>
+
+            <!-- Cards de Informação -->
+            <div class="row mt-4">
+                <div class="col-md-4 mb-3">
+                    <div class="card info-card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">CATÁLOGO</h5>
+                            <p class="card-text">Veja meus desenhos, estilos e inspirações para sua próxima tattoo!</p>
+                            <a href="pages/catalogo.html" class="btn btn-dark">Ver Catálogo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card info-card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">CUIDADOS</h5>
+                            <p class="card-text">Saiba como cuidar bem da sua tatuagem e garantir uma cicatrização perfeita.</p>
+                            <a href="pages/cuidadosTattoo.html" class="btn btn-dark">Ver Dicas</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <div class="card info-card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">SOBRE MIM</h5>
+                            <p class="card-text">Conheça minha história, trajetória e paixão pelo mundo da tatuagem.</p>
+                            <a href="pages/sobreMim.html" class="btn btn-dark">Saiba Mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // Inicializa o carrossel com intervalo de 3 segundos
+            document.addEventListener('DOMContentLoaded', function() {
+                var carousel = new bootstrap.Carousel(document.getElementById('mobileVerticalCarousel'), {
+                    interval: 3000,
+                    wrap: true,
+                    pause: false
+                });
+            });
+        </script>
+        
+        <footer class="custom-footer">
+            <div class="container">
+                <div class="footer-line">TODOS OS DIREITOS RESERVADOS &copy; LELEO TATTOO</div>
+            </div>
+        </footer>
+    </body>
+</html>
