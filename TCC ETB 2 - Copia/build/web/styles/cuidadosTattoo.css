@@ -1,0 +1,104 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* centraliza verticalmente */
+    align-items: center;      /* centraliza horizontalmente */
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+.accordion-item {
+    width: 100%;
+    max-width: 800px;        /* limite máximo */
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* .accordion-item {
+    width: 100%;
+    max-width: 800px;        /* limite máximo */
+    /* border: 1px solid #ddd; */
+    /* margin-bottom: 10px; */
+    /* border-radius: 5px; */
+    /* overflow: hidden; */
+/* } */ 
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #4d4d4d;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #9e0404;
+}
+
+.accordion-header .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* espaço entre ícone e texto */
+}
+
+.accordion-header img {
+    width: 24px;
+    height: 24px;
+}
+
+.accordion-header h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.accordion-header .icon {
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    background: #f9f9f9;
+    padding: 0 15px;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.accordion-content p {
+    margin: 15px 0;
+}
+
+            .custom-footer {
+                background-color: #4d4d4d;
+                color: #ffffff;
+                text-align: center;
+                padding: 30px 0;
+                font-family: 'Arial', sans-serif;
+                margin-top: auto; 
+            }
+            
+            .footer-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            .footer-line {
+                font-size: 1.2rem;
+                margin: 10px 0;
+                position: relative;
+                display: inline-block;
+                transition: all 0.3s ease;
+            }
+            
+        

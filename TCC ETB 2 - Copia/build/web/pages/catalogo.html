@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATÁLOGO - Leleo Tattoo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/catalogo.css">
+    <link rel="stylesheet" href="../styles/index.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg custom-navbar">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">INÍCIO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="catalogo.html">CATÁLOGO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./cuidadosTattoo.html">CUIDADOS COM A TATTOO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./sobreMim.html">SOBRE MIM</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./cadastro.jsp">CADASTRO</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="login.jsp">LOGIN</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <br>
+    <br>
+    <br>
+    <main class="container">
+        <!-- Primeira Seção -->
+        <div class="tattoo-grid">
+            <!-- Substitua os src pelas suas imagens -->
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art1.jpeg')">
+                <img src="../imgsCatalogo/art1.jpeg" alt="Tatuagem ">
+            </div>
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art2.jpeg')">
+                <img src="../imgsCatalogo/art2.jpeg" alt="Tatuagem ">
+            </div>
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art3.jpeg')">
+                <img src="../imgsCatalogo/art3.jpeg" alt="Tatuagem ">
+            </div>
+        </div>
+        
+        <!-- Segunda Seção -->
+        <div class="tattoo-grid">
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art14.jpeg')">
+                <img src="../imgsCatalogo/art4.jpeg" alt="Tatuagem ">
+            </div>
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art5.jpeg')">
+                <img src="../imgsCatalogo/art5.jpeg" alt="Tatuagem ">
+            </div>
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art6.jpeg')">
+                <img src="../imgsCatalogo/art6.jpeg" alt="Tatuagem ">
+            </div>
+        </div>
+
+        <div class="tattoo-grid">
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art7.jpeg')">
+                <img src="../imgsCatalogo/art7.jpeg" alt="Tatuagem ">
+            </div>
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art8.jpeg')">
+                <img src="../imgsCatalogo/art8.jpeg" alt="Tatuagem ">
+            </div>
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art9.jpeg')">
+                <img src="../imgsCatalogo/art9.jpeg" alt="Tatuagem ">
+            </div>
+        </div>
+
+        <div class="tattoo-grid">
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art10.jpeg')">
+                <img src="../imgsCatalogo/art10.jpeg" alt="Tatuagem ">
+            </div>
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art11.jpeg')">
+                <img src="../imgsCatalogo/art11.jpeg" alt="Tatuagem ">
+            </div>
+            <div class="tattoo-item" data-bs-toggle="modal" data-bs-target="#tattooModal" onclick="expandImage('../imgsCatalogo/art12.jpeg')">
+                <img src="../imgsCatalogo/art12.jpeg" alt="Tatuagem ">
+            </div>
+        </div>
+
+    <!-- Modal para imagem expandida -->
+    <div class="modal fade" id="tattooModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img id="expandedTattoo" src="" alt="Tatuagem expandida">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function expandImage(imageUrl) {
+            document.getElementById('expandedTattoo').src = imageUrl;
+        }
+    </script>
+
+    <footer class="custom-footer">
+        <div class="footer-content">
+            <div class="footer-line">TODOS OS DIREITOS RESERVADOS &copy</div>
+        </div>
+    </footer>
+</body>
+</html>

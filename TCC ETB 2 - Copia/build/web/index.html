@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>LELEO TATTOO</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/index.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg custom-navbar fixed-top">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">INÍCIO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/catalogo.html">CATÁLOGO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/cuidadosTattoo.html">CUIDADOS COM A TATTOO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/sobreMim.html">SOBRE MIM</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/cadastro.jsp">CADASTRO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/login.jsp">LOGIN</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="animate__animated animate__fadeInDown">LELEO TATTOO</h1>
+            </div>
+        </section>
+
+        <!-- Seção Catálogo -->
+        <section id="catalogo-section" class="content-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="image-container reveal fade-right">
+                            <img src="imgs/tattoo1.jpeg" alt="Exemplo de Tatuagem" class="img-fluid rounded shadow">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="text-content reveal fade-left">
+                            <h2>CATÁLOGO</h2>
+                            <p>Explore minha galeria de trabalhos e encontre inspiração para sua próxima tatuagem. Cada peça é única e personalizada.</p>
+                            <a href="pages/catalogo.html" class="btn btn-dark mt-3">VER CATÁLOGO COMPLETO</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Cuidados -->
+        <section id="cuidados-section" class="content-section bg-light">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="image-container reveal fade-left">
+                            <img src="imgs/tattoo4.jpeg" alt="Cuidados com Tatuagem" class="img-fluid rounded shadow">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-content reveal fade-right">
+                            <h2>CUIDADOS COM A TATTOO</h2>
+                            <p>Aprenda como cuidar adequadamente da sua nova tatuagem para garantir uma cicatrização perfeita e cores vibrantes por mais tempo.</p>
+                            <a href="pages/cuidadosTattoo.html" class="btn btn-dark mt-3">VER DICAS DE CUIDADOS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Sobre Mim -->
+        <section id="sobre-section" class="content-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="image-container reveal fade-right">
+                            <img src="imgs/tattoo5.jpeg" alt="Sobre o Artista" class="img-fluid rounded shadow">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="text-content reveal fade-left">
+                            <h2>SOBRE MIM</h2>
+                            <p>Conheça minha jornada no mundo da tatuagem, meu estilo artístico e minha paixão por criar obras de arte únicas em cada cliente.</p>
+                            <a href="pages/sobreMim.html" class="btn btn-dark mt-3">CONHECER ARTISTA</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // Efeito de revelação ao scroll
+            document.addEventListener('DOMContentLoaded', function() {
+                const revealElements = document.querySelectorAll('.reveal');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                });
+
+                revealElements.forEach(element => {
+                    observer.observe(element);
+                });
+            });
+        </script>
+        <br>
+        <footer class="custom-footer">
+            <div class="container">
+                <div class="footer-line">TODOS OS DIREITOS RESERVADOS &copy; LELEO TATTOO</div>
+            </div>
+        </footer>
+    </body>
+</html>
