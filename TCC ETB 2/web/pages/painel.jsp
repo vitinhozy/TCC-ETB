@@ -41,23 +41,42 @@
                 verificaStmt.close();
 
                 if (horarioDisponivel) {
-                    // Inserir o agendamento
-                    PreparedStatement stmt = conexao.prepareStatement("INSERT INTO agendamentos (usuario_id, horario) VALUES (?, ?)");
-                    stmt.setInt(1, usuarioId);
-                    stmt.setString(2, dataSelecionadaPost + " " + horarioSelecionado + ":00");
-                    stmt.executeUpdate();
-                    stmt.close();
+                    // Verifica se o usuário já agendou esse horário
+                    PreparedStatement verificaUsuarioHorarioStmt = conexao.prepareStatement(
+                        "SELECT COUNT(*) FROM agendamentos WHERE usuario_id = ? AND horario = ?");
+                    verificaUsuarioHorarioStmt.setInt(1, usuarioId);
+                    verificaUsuarioHorarioStmt.setString(2, dataSelecionadaPost + " " + horarioSelecionado + ":00");
+                    ResultSet rsUsuarioHorario = verificaUsuarioHorarioStmt.executeQuery();
+                    boolean jaAgendadoPeloUsuario = false;
+                    if (rsUsuarioHorario.next()) {
+                        int count = rsUsuarioHorario.getInt(1);
+                        if (count > 0) {
+                            jaAgendadoPeloUsuario = true;
+                        }
+                    }
+                    rsUsuarioHorario.close();
+                    verificaUsuarioHorarioStmt.close();
 
-                    session.setAttribute("mensagemFeedback", "Agendamento confirmado para " + dataSelecionadaPost + " às " + horarioSelecionado + ".");
-                    session.setAttribute("tipoMensagem", "success");
+                    if (jaAgendadoPeloUsuario) {
+                        session.setAttribute("mensagemFeedback", "Você já possui um agendamento neste horário.");
+                        session.setAttribute("tipoMensagem", "warning");
+                    } else {
+                        // Inserir o agendamento
+                        PreparedStatement stmt = conexao.prepareStatement("INSERT INTO agendamentos (usuario_id, horario) VALUES (?, ?)");
+                        stmt.setInt(1, usuarioId);
+                        stmt.setString(2, dataSelecionadaPost + " " + horarioSelecionado + ":00");
+                        stmt.executeUpdate();
+                        stmt.close();
+
+                        session.setAttribute("mensagemFeedback", "Agendamento confirmado para " + dataSelecionadaPost + " às " + horarioSelecionado + ".");
+                        session.setAttribute("tipoMensagem", "success");
+                    }
                 } else {
                     session.setAttribute("mensagemFeedback", "O horário selecionado já está reservado. Por favor, escolha outro horário.");
                     session.setAttribute("tipoMensagem", "danger");
                 }
 
                 conexao.close();
-
-                // Redireciona para evitar reenvio do formulário (limpa dataSelecionada e horários)
                 response.sendRedirect("painel.jsp");
                 return;
 
@@ -101,15 +120,39 @@
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
-            PreparedStatement stmt = conexao.prepareStatement("SELECT horario FROM horarios_disponiveis WHERE DATE(horario) = ?");
+
+            // Buscar todos os horários disponíveis da data
+            PreparedStatement stmt = conexao.prepareStatement(
+                "SELECT horario FROM horarios_disponiveis WHERE DATE(horario) = ?"
+            );
             stmt.setString(1, dataSelecionada);
             ResultSet rs = stmt.executeQuery();
+
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm");
 
+            // Buscar todos os horários já agendados da mesma data
+            PreparedStatement agendadosStmt = conexao.prepareStatement(
+                "SELECT horario FROM agendamentos WHERE DATE(horario) = ?"
+            );
+            agendadosStmt.setString(1, dataSelecionada);
+            ResultSet rsAgendados = agendadosStmt.executeQuery();
+
+            Set<String> horariosAgendados = new HashSet<String>();
+            while (rsAgendados.next()) {
+                Timestamp horarioAgendado = rsAgendados.getTimestamp("horario");
+                horariosAgendados.add(sdf.format(horarioAgendado));
+            }
+            rsAgendados.close();
+            agendadosStmt.close();
+
+            // Adicionar à lista somente os horários livres
             while (rs.next()) {
                 Timestamp horario = rs.getTimestamp("horario");
                 String horarioFormatado = sdf.format(horario);
-                horariosDoDia.add(horarioFormatado);
+
+                if (!horariosAgendados.contains(horarioFormatado)) {
+                    horariosDoDia.add(horarioFormatado);
+                }
             }
             rs.close();
             stmt.close();
@@ -119,6 +162,7 @@
         }
     }
 %>
+
 
 <!DOCTYPE html>
 <html>
@@ -135,9 +179,13 @@
     <a href="../index.html" class="btn btn-secondary back-button animate__animated animate__fadeInLeft">
         <i class="fas fa-arrow-left me-2"></i>Voltar ao Menu
     </a>
-
+    <div class="text-center mt-4">
+    <a href="./meu_agendamento.jsp" class="btn btn-info">
+        <i class="fas fa-calendar-check me-2"></i>Verificar meus agendamentos
+    </a>
+</div>
     <div class="welcome-card p-4 text-center animate__animated animate__fadeInDown">
-        <h2><i class="fas fa-user-circle me-2"></i>Bem-vindo, <%= nome %>!</h2>
+        <h2><i class="fas fa-user-circle me-2"></i>Bem-vindo!</h2>
         <p class="mb-0">Gerencie seus agendamentos aqui</p>
     </div>
 
@@ -146,10 +194,6 @@
             <%= mensagemFeedback %>
         </div>
     <% } %>
-
-    <div class="alert alert-success animate__animated animate__fadeIn">
-        <i class="fas fa-star me-2"></i>Você acumulou <strong><%= pontos %> pontos</strong>!
-    </div>
 
     <div class="schedule-card animate__animated animate__fadeInUp">
         <div class="text-center mb-4">
@@ -163,7 +207,7 @@
         <div class="mb-4">
             <div class="step">
                 <div class="step-number">1</div>
-                <div>Selecione a data e horário desejados</div>
+                <div>Selecione a data desejada</div>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
@@ -180,17 +224,17 @@
                 <div class="card-body">
                     <hr>
 
-                    <h4>Verificar horários disponíveis</h4>
+                    <h4>Verificar datas disponíveis</h4>
                     <form method="get" action="painel.jsp" class="mb-3">
                         <input type="date" name="dataSelecionada" class="form-control" required>
-                        <button type="submit" class="btn btn-primary mt-2">Buscar horários</button>
+                        <button type="submit" class="btn btn-primary mt-2">Buscar datas</button>
                     </form>
 
                     <% if (dataSelecionada != null && !dataSelecionada.isEmpty()) { %>
                         <hr>
-                        <h5>Horários disponíveis para <%= dataSelecionada %>:</h5>
+                        <h5>Datas disponíveis para <%= dataSelecionada %>:</h5>
                         <% if (horariosDoDia.isEmpty()) { %>
-                            <div class="alert alert-warning mt-2">Nenhum horário para este dia.</div>
+                            <div class="alert alert-warning mt-2">Nenhuma data para este dia.</div>
                         <% } else { %>
                             <form method="post" action="painel.jsp">
                                 <input type="hidden" name="dataSelecionada" value="<%= dataSelecionada %>">
