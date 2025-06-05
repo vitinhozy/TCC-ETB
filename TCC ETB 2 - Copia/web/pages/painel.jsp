@@ -58,7 +58,7 @@
                     verificaUsuarioHorarioStmt.close();
 
                     if (jaAgendadoPeloUsuario) {
-                        session.setAttribute("mensagemFeedback", "Voc? j? possui um agendamento neste hor?rio.");
+                        session.setAttribute("mensagemFeedback", "Você já possui um agendamento neste horário.");
                         session.setAttribute("tipoMensagem", "warning");
                     } else {
                         // Inserir o agendamento
@@ -72,7 +72,7 @@
                         session.setAttribute("tipoMensagem", "success");
                     }
                 } else {
-                    session.setAttribute("mensagemFeedback", "O hor?rio selecionado j? est? reservado. Por favor, escolha outro hor?rio.");
+                    session.setAttribute("mensagemFeedback", "O horário selecionado já está reservado. Por favor, escolha outro horário.");
                     session.setAttribute("tipoMensagem", "danger");
                 }
 
@@ -87,31 +87,14 @@
                 return;
             }
         } else {
-            session.setAttribute("mensagemFeedback", "Data ou hor?rio n?o selecionados.");
+            session.setAttribute("mensagemFeedback", "Data ou horário não selecionados.");
             session.setAttribute("tipoMensagem", "warning");
             response.sendRedirect("painel.jsp");
             return;
         }
     }
 
-    // Pegar pontos do usu?rio
-    int pontos = 0;
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
-        PreparedStatement stmt = conexao.prepareStatement("SELECT pontos FROM usuarios WHERE id = ?");
-        stmt.setInt(1, usuarioId);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            pontos = rs.getInt("pontos");
-        }
-        rs.close();
-        stmt.close();
-        conexao.close();
-    } catch (Exception e) {
-        out.println("Erro ao buscar pontos: " + e.getMessage());
-    }
-
+    
     // Verifica se o usu?rio selecionou uma data para buscar hor?rios dispon?veis (GET)
     String dataSelecionada = request.getParameter("dataSelecionada");
     List<String> horariosDoDia = new ArrayList<String>();
@@ -158,7 +141,7 @@
             stmt.close();
             conexao.close();
         } catch (Exception e) {
-            out.println("Erro ao buscar hor?rios: " + e.getMessage());
+            out.println("Erro ao buscar horários: " + e.getMessage());
         }
     }
 %>
@@ -200,7 +183,7 @@
             <div class="calendar-icon floating">
                 <i class="fas fa-calendar-alt"></i>
             </div>
-            <h3>Agendar Novo Hor?rio</h3>
+            <h3>Agendar Novo Horário</h3>
             <p class="text-muted">Escolha uma data e verifique se está disponível</p>
         </div>
 
@@ -215,7 +198,7 @@
             </div>
             <div class="step">
                 <div class="step-number">3</div>
-                <div>E verifique se est? dispon?vel</div>
+                <div>E verifique se está disponível</div>
             </div>
         </div>
 
@@ -224,7 +207,7 @@
                 <div class="card-body">
                     <hr>
 
-                    <h4>Verificar datas dispon?veis</h4>
+                    <h4>Verificar datas disponíveis</h4>
                     <form method="get" action="painel.jsp" class="mb-3">
                         <input type="date" name="dataSelecionada" class="form-control" required>
                         <button type="submit" class="btn btn-primary mt-2">Buscar datas</button>
@@ -232,7 +215,7 @@
 
                     <% if (dataSelecionada != null && !dataSelecionada.isEmpty()) { %>
                         <hr>
-                        <h5>Datas dispon?veis para <%= dataSelecionada %>:</h5>
+                        <h5>Datas disponíveis para <%= dataSelecionada %>:</h5>
                         <% if (horariosDoDia.isEmpty()) { %>
                             <div class="alert alert-warning mt-2">Nenhuma data para este dia.</div>
                         <% } else { %>

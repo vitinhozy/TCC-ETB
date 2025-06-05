@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*, java.util.*" %>
+<%@ page import="java.sql.*, java.util.*" %>
 <%
     // Verificação de login
     String email = (String) session.getAttribute("usuarioEmail");
@@ -7,9 +8,8 @@
         return;
     }
 
-    // Declaração das variáveis no início do scriptlet
     String msg = "";
-    List horarios = new ArrayList();
+    List<Map<String, String>> horarios = new ArrayList();
     Connection conn = null;
     PreparedStatement stmt = null;
     Statement listStmt = null;
@@ -19,26 +19,24 @@
     if ("POST".equalsIgnoreCase(request.getMethod())) {
         String action = request.getParameter("action");
         String novoHorario = request.getParameter("novoHorario");
-        
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
-            
-            if ("add".equals(action) && novoHorario != null) {
+
+            if ("add".equals(action) && novoHorario != null && !novoHorario.isEmpty()) {
                 stmt = conn.prepareStatement("INSERT INTO horarios_disponiveis (horario) VALUES (?)");
                 stmt.setString(1, novoHorario);
                 stmt.executeUpdate();
                 msg = "Horário adicionado com sucesso!";
-            } 
-            else if ("edit".equals(action)) {
+            } else if ("edit".equals(action)) {
                 String id = request.getParameter("id");
                 stmt = conn.prepareStatement("UPDATE horarios_disponiveis SET horario = ? WHERE id = ?");
                 stmt.setString(1, novoHorario);
                 stmt.setString(2, id);
                 stmt.executeUpdate();
                 msg = "Horário atualizado com sucesso!";
-            }
-            else if ("delete".equals(action)) {
+            } else if ("delete".equals(action)) {
                 String id = request.getParameter("id");
                 stmt = conn.prepareStatement("DELETE FROM horarios_disponiveis WHERE id = ?");
                 stmt.setString(1, id);
@@ -46,22 +44,22 @@
                 msg = "Horário removido com sucesso!";
             }
         } catch (Exception e) {
-            msg = "Erro: " + e.getMessage();
+            msg = "Erro ao processar formulário: " + e.getMessage();
         } finally {
             if (stmt != null) try { stmt.close(); } catch (SQLException e) {}
             if (conn != null) try { conn.close(); } catch (SQLException e) {}
         }
     }
-    
+
     // Carregar horários disponíveis
     try {
         Class.forName("com.mysql.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
         listStmt = conn.createStatement();
         rs = listStmt.executeQuery("SELECT * FROM horarios_disponiveis ORDER BY horario");
-        
+
         while (rs.next()) {
-            Map horario = new HashMap();
+            Map<String, String> horario = new HashMap();
             horario.put("id", rs.getString("id"));
             horario.put("horario", rs.getString("horario"));
             horarios.add(horario);
@@ -74,6 +72,7 @@
         if (conn != null) try { conn.close(); } catch (SQLException e) {}
     }
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -386,7 +385,8 @@
                                     <div class="form-group">
                                         <label>Novo horário:</label>
                                         <input type="datetime-local" name="novoHorario" 
-                                               value="<%= horario.get("horario").toString().substring(0, 16) %>" 
+                                               value="<%= horario.get("horario").toString().length() >= 16 ? horario.get("horario").toString().substring(0, 16) : horario.get("horario").toString() %>"
+
                                                required class="form-control">
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-sm">Atualizar</button>

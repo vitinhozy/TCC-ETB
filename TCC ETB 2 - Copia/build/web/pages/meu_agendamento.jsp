@@ -52,7 +52,7 @@
                         </div>
                         <div class="btn-group">
 
-                            <!-- Bot?o Cancelar -->
+                            <!-- Botão Cancelar -->
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarModal<%= agendamentoId %>">
                                 Cancelar
                             </button>
@@ -67,8 +67,8 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Aten??o! Deseja realmente cancelar este agendamento?</p>
-                                        <p><strong>Cancelamentos feitos com menos de 24 horas de anteced?ncia podem ser penalizados. Caso o cliente queira cancelar, ser? cobrada uma taxa de 25% do valor do servi?o, ou uma nova marca??o poder? ser mais dif?cil devido ? alta demanda.</strong></p>
+                                        <p>Atenção! Deseja realmente cancelar este agendamento?</p>
+                                        <p><strong>Cancelamentos feitos com menos de 24 horas de antecedência podem ser penalizados. Caso o cliente queira cancelar, será cobrada uma taxa de 25% do valor do serviço, ou uma nova marcação poderá ser mais difícil devido a alta demanda.</strong></p>
                                     </div>
                                     <div class="modal-footer">
                                         <form method="post" action="cancelar_agendamento.jsp">
