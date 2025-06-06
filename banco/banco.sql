@@ -1,5 +1,5 @@
 create database banco_leleo_tattoo;
-
+use banco_leleo_tattoo;
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -12,4 +12,12 @@ CREATE TABLE agendamentos (
     horario DATETIME NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
+
+CREATE TABLE horarios_disponiveis (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    horario DATETIME NOT NULL
+);
+
+
+
 
