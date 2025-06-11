@@ -101,7 +101,7 @@
 
     <footer class="custom-footer mt-5">
         <div class="footer-content">
-            <div class="footer-line">TODOS OS DIREITOS RESERVADOS &copy</div>
+            <div class="footer-line">TODOS OS DIREITOS RESERVADOS &copy; LELEO TATTOO</div>
         </div>
     </footer>
 

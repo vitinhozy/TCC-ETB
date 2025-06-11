@@ -71,7 +71,7 @@
                                         <p><strong>Cancelamentos feitos com menos de 24 horas de antecedência podem ser penalizados. Caso o cliente queira cancelar, será cobrada uma taxa de 25% do valor do serviço, ou uma nova marcação poderá ser mais difícil devido a alta demanda.</strong></p>
                                     </div>
                                     <div class="modal-footer">
-                                        <form method="post" action="cancelar_agendamento.jsp">
+                                        <form method="post" action="./cancelar_agendamento.jsp">
                                             <input type="hidden" name="agendamentoId" value="<%= agendamentoId %>">
                                             <button type="submit" class="btn btn-danger">Confirmar Cancelamento</button>
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>

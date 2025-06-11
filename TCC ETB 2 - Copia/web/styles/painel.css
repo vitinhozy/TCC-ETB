@@ -162,3 +162,32 @@ body {
     background-color: #f8f9fa;
     transform: translateY(-2px);
 }
+
+.custom-btn {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+}
+
+.custom-btn:hover {
+    background-color: #7057d6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    color: white;
+}
+
+.btn-icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}

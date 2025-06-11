@@ -163,10 +163,11 @@
         <i class="fas fa-arrow-left me-2"></i>Voltar ao Menu
     </a>
     <div class="text-center mt-4">
-    <a href="./meu_agendamento.jsp" class="btn btn-info">
-        <i class="fas fa-calendar-check me-2"></i>Verificar meus agendamentos
-    </a>
-</div>
+        <a href="./meu_agendamento.jsp" class="custom-btn">
+            Verificar meus agendamentos
+        </a>
+    </div>
+    <br>
     <div class="welcome-card p-4 text-center animate__animated animate__fadeInDown">
         <h2><i class="fas fa-user-circle me-2"></i>Bem-vindo!</h2>
         <p class="mb-0">Gerencie seus agendamentos aqui</p>
@@ -217,7 +218,7 @@
                         <hr>
                         <h5>Datas disponíveis para <%= dataSelecionada %>:</h5>
                         <% if (horariosDoDia.isEmpty()) { %>
-                            <div class="alert alert-warning mt-2">Nenhuma data para este dia.</div>
+                            <div class="alert alert-warning mt-2">Nenhuma data ou horário para este dia.</div>
                         <% } else { %>
                             <form method="post" action="painel.jsp">
                                 <input type="hidden" name="dataSelecionada" value="<%= dataSelecionada %>">
