@@ -4,15 +4,18 @@
     String mensagem = "";
 
     if ("POST".equalsIgnoreCase(request.getMethod())) {
+        String nome = request.getParameter("nome");
+        String nascimento = request.getParameter("nascimento");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
 
-        if (email != null && senha != null && !email.isEmpty() && !senha.isEmpty()) {
+        if (nome != null && nascimento != null && email != null && senha != null &&
+            !nome.isEmpty() && !nascimento.isEmpty() && !email.isEmpty() && !senha.isEmpty()) {
+
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
 
-                // Verifica se o email já está cadastrado
                 String checkSql = "SELECT * FROM usuarios WHERE email = ?";
                 PreparedStatement checkStmt = conexao.prepareStatement(checkSql);
                 checkStmt.setString(1, email);
@@ -21,10 +24,12 @@
                 if (rs.next()) {
                     mensagem = "Email já cadastrado!";
                 } else {
-                    String sql = "INSERT INTO usuarios (email, senha) VALUES (?, ?)";
+                    String sql = "INSERT INTO usuarios (nome, nascimento, email, senha) VALUES (?, ?, ?, ?)";
                     PreparedStatement stmt = conexao.prepareStatement(sql);
-                    stmt.setString(1, email);
-                    stmt.setString(2, senha);
+                    stmt.setString(1, nome);
+                    stmt.setDate(2, java.sql.Date.valueOf(nascimento)); // yyyy-MM-dd
+                    stmt.setString(3, email);
+                    stmt.setString(4, senha);
                     stmt.executeUpdate();
                     mensagem = "Cadastro realizado com sucesso!";
                     stmt.close();
@@ -80,6 +85,12 @@
                     <div class="alert alert-info"><%= mensagem %></div>
                 <% } %>
                 <form method="post">
+                    <div class="mb-3">
+                        <input type="text" name="nome" class="form-control" placeholder="Nome completo" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="date" name="nascimento" class="form-control" required>
+                    </div>
                     <div class="mb-3">
                         <input type="email" name="email" class="form-control" placeholder="Email" required>
                     </div>
