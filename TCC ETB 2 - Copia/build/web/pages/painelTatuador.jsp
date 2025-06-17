@@ -1,5 +1,4 @@
 <%@ page import="java.sql.*, java.util.*" %>
-<%@ page import="java.sql.*, java.util.*" %>
 <%
     // Verificação de login
     String email = (String) session.getAttribute("usuarioEmail");
@@ -9,7 +8,8 @@
     }
 
     String msg = "";
-    List<Map<String, String>> horarios = new ArrayList();
+
+    List<Map<String, String>> horarios = new ArrayList<Map<String, String>>();
     Connection conn = null;
     PreparedStatement stmt = null;
     Statement listStmt = null;
@@ -25,10 +25,24 @@
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
 
             if ("add".equals(action) && novoHorario != null && !novoHorario.isEmpty()) {
-                stmt = conn.prepareStatement("INSERT INTO horarios_disponiveis (horario) VALUES (?)");
-                stmt.setString(1, novoHorario);
-                stmt.executeUpdate();
-                msg = "Horário adicionado com sucesso!";
+                // Verifica se o horário já está agendado
+                String sqlCheck = "SELECT COUNT(*) FROM agendamentos WHERE horario = ?";
+                PreparedStatement checkStmt = conn.prepareStatement(sqlCheck);
+                checkStmt.setString(1, novoHorario);
+                ResultSet rsCheck = checkStmt.executeQuery();
+                rsCheck.next();
+                int count = rsCheck.getInt(1);
+                rsCheck.close();
+                checkStmt.close();
+
+                if (count > 0) {
+                    msg = "Erro: Já existe um agendamento para esse horário. Escolha outro.";
+                } else {
+                    stmt = conn.prepareStatement("INSERT INTO horarios_disponiveis (horario) VALUES (?)");
+                    stmt.setString(1, novoHorario);
+                    stmt.executeUpdate();
+                    msg = "Horário adicionado com sucesso!";
+                }
             } else if ("edit".equals(action)) {
                 String id = request.getParameter("id");
                 stmt = conn.prepareStatement("UPDATE horarios_disponiveis SET horario = ? WHERE id = ?");
@@ -56,16 +70,44 @@
         Class.forName("com.mysql.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
         listStmt = conn.createStatement();
-        rs = listStmt.executeQuery("SELECT * FROM horarios_disponiveis ORDER BY horario");
+        rs = listStmt.executeQuery("SELECT id, horario FROM horarios_disponiveis ORDER BY horario ASC");
 
         while (rs.next()) {
-            Map<String, String> horario = new HashMap();
+            Map<String, String> horario = new HashMap<String, String>();
             horario.put("id", rs.getString("id"));
             horario.put("horario", rs.getString("horario"));
             horarios.add(horario);
         }
     } catch (Exception e) {
         msg = "Erro ao carregar horários: " + e.getMessage();
+    } finally {
+        if (rs != null) try { rs.close(); } catch (SQLException e) {}
+        if (listStmt != null) try { listStmt.close(); } catch (SQLException e) {}
+        if (conn != null) try { conn.close(); } catch (SQLException e) {}
+    }
+
+    // Carregar agendamentos
+    List<Map<String, String>> agendamentos = new ArrayList<Map<String, String>>();
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco_leleo_tattoo", "root", "");
+        listStmt = conn.createStatement();
+        rs = listStmt.executeQuery(
+            "SELECT a.id, u.nome AS nome_cliente, a.horario " +
+    "FROM agendamentos a " +
+    "LEFT JOIN usuarios u ON a.usuario_id = u.id " +  // Mudei para LEFT JOIN
+    "ORDER BY a.horario DESC"
+        );
+
+        while (rs.next()) {
+            Map<String, String> agendamento = new HashMap<String, String>();
+            agendamento.put("id", rs.getString("id"));
+            agendamento.put("nome", rs.getString("nome_cliente"));
+            agendamento.put("data", rs.getString("horario"));
+            agendamentos.add(agendamento);
+        }
+    } catch (Exception e) {
+        msg += "<br>Erro ao carregar agendamentos: " + e.getMessage();
     } finally {
         if (rs != null) try { rs.close(); } catch (SQLException e) {}
         if (listStmt != null) try { listStmt.close(); } catch (SQLException e) {}
@@ -318,6 +360,7 @@
                 justify-content: flex-end;
             }
         }
+        
     </style>
 </head>
 <body>
@@ -400,6 +443,26 @@
             <% } %>
         </div>
     </div>
+<div class="card">
+    <h3 class="card-title">Agendamentos Realizados</h3>
+    <% if (agendamentos.isEmpty()) { %>
+        <div class="empty-state">
+            <i class="fas fa-calendar-times"></i>
+            <p>Nenhum agendamento realizado ainda.</p>
+        </div>
+    <% } else { %>
+        <div class="agendamentos-container">
+            <% for (Map<String, String> agendamento : agendamentos) { %>
+                <div class="agendamento-item">
+                    <p><strong>Cliente:</strong> <%= agendamento.get("nome") %></p>
+                    <p><strong>Data:</strong> <%= agendamento.get("data") %></p>
+                    <hr>
+                </div>
+            <% } %>
+        </div>
+    <% } %>
+</div>
+        
     
     <script>
         // Formata as datas para exibição amigável
