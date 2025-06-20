@@ -57,6 +57,18 @@
                 stmt.executeUpdate();
                 msg = "Horário removido com sucesso!";
             }
+            
+            else if ("dar_baixa".equals(action)) {
+    String agendamentoId = request.getParameter("agendamento_id");
+
+    // Exclui o agendamento com base no ID
+    stmt = conn.prepareStatement("DELETE FROM agendamentos WHERE id = ?");
+    stmt.setString(1, agendamentoId);
+    stmt.executeUpdate();
+
+    msg = "Agendamento removido com sucesso!";
+}
+
         } catch (Exception e) {
             msg = "Erro ao processar formulário: " + e.getMessage();
         } finally {
@@ -361,7 +373,37 @@
             }
         }
         
-    </style>
+.btn-dar-baixa {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-dar-baixa:hover {
+    background-color: #c0392b;
+}
+
+.btn-historico {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.btn-historico:hover {
+    background-color: var(--primary);
+}
+</style>
+
 </head>
 <body>
     <header>
@@ -417,7 +459,7 @@
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<%= horario.get("id") %>">
                                     <button type="submit" class="btn btn-delete btn-sm" 
-                                            onclick="return confirm('Tem certeza que deseja excluir este horário?')">Excluir</button>
+                                            onclick="return confirm('Tem certeza que deseja excluir este horário? Um e-mail será enviado para o cliente explicando sobre o ocorrido.')">Excluir</button>
                                 </form>
                             </div>
                             
@@ -443,6 +485,7 @@
             <% } %>
         </div>
     </div>
+        
 <div class="card">
     <h3 class="card-title">Agendamentos Realizados</h3>
     <% if (agendamentos.isEmpty()) { %>
@@ -452,13 +495,22 @@
         </div>
     <% } else { %>
         <div class="agendamentos-container">
-            <% for (Map<String, String> agendamento : agendamentos) { %>
-                <div class="agendamento-item">
-                    <p><strong>Cliente:</strong> <%= agendamento.get("nome") %></p>
-                    <p><strong>Data:</strong> <%= agendamento.get("data") %></p>
-                    <hr>
-                </div>
-            <% } %>
+           <% for (Map<String, String> agendamento : agendamentos) { %>
+    <div class="agendamento-item">
+        <p><strong>Cliente:</strong> <%= agendamento.get("nome") %></p>
+        <p><strong>Data:</strong> <%= agendamento.get("data") %></p>
+
+        <!-- Formulário para dar baixa -->
+        <form method="post" style="margin-top: 10px;">
+            <input type="hidden" name="action" value="dar_baixa">
+            <input type="hidden" name="agendamento_id" value="<%= agendamento.get("id") %>">
+            <button type="submit" class="btn-dar-baixa">Dar baixa</button>
+        </form>
+
+        <hr>
+    </div>
+<% } %>
+
         </div>
     <% } %>
 </div>
@@ -480,7 +532,7 @@
             document.querySelectorAll('form[action=""]').forEach(form => {
                 form.addEventListener('submit', function(e) {
                     if (this.querySelector('input[name="action"]').value === 'delete') {
-                        if (!confirm('Tem certeza que deseja excluir este horário?')) {
+                        if (!confirm('Tem certeza que deseja excluir este horário? Um e-mail será enviado para o cliente explicando sobre o ocorrido.')) {
                             e.preventDefault();
                         }
                     }
